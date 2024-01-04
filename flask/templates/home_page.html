@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home_page_style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+
+    {% block content%}
+
+        <div>
+            <h1 class="app_title">MLB Stat Analyzer</h1>
+        </div>
+
+        <div id="category_chooser">
+            <h3>Choose which category to compare</h1>
+            <div class="button_container">
+                <button id="offensive_button">Offense</button>
+                <button id="pitching_button">Pitching</button>
+            </div>
+        </div>
+        
+
+    <script 
+        type="text/javascript" 
+        src="{{ url_for('static', filename = 'home_page_script.js')}}"
+    ></script>
+    
+    
+    {% endblock %}
+</body>
+</html>

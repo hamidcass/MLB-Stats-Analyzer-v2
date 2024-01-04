@@ -1,0 +1,46 @@
+<div>
+    <h1 class="app_title">MLB Stat Analyzer</h1>
+</div>
+
+
+<div id="stats_chooser">
+    <h3>Now, choose which stats to compare</h1>
+    
+        <div class="button_container">
+            <div class="dropdown_container">
+
+                <button id="stat_1" class="dropdown_buttons">First stat</button>
+                <button id="stat_2" class="dropdown_buttons">Second Stat</button>
+                <button id="submit_button">Submit</button>
+                <div id="dropdown_container_2">
+                    <div class="dropdown_content">
+                        <h4 class="dd_option">Batting Average</h4>
+                        <h4 class="dd_option">Home Runs</h4>
+                        <h4 class="dd_option">Runs Batted In (RBI)</h4>
+                        <h4 class="dd_option">On Base Plus Slugging (OPS)</h4>
+                        <h4 class="dd_option">On Base Percentage (OPS)</h4>
+                        <h4 class="dd_option">Slugging Percentage (SLG)</h4>
+                        <h4 class="dd_option">Hits</h4>
+                        <h4 class="dd_option">Runs</h4>
+                        <h4 class="dd_option">Base On Balls (BB)</h4>
+                        <h4 class="dd_option">Stolen Bases (SB)</h4>
+                        <h4 class="dd_option">Caught Stealing (CS)</h4>
+                        <h4 class="dd_option">Hit By Pitch (HBP)</h4>
+                        <h4 class="dd_option">Doubles</h4>
+                        <h4 class="dd_option">Triples</h4>
+                        <h4 class="dd_option">At Bats Per Home Run (AB/HR)</h4>
+                        <h4 class="dd_option">Games Played</h4>
+                        <h4 class="dd_option">At Bats</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        
+    
+</div>
+
+<script 
+        type="text/javascript" 
+        src="{{ url_for('static', filename = 'home_page_script.js')}}"
+></script>

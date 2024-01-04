@@ -1,0 +1,15 @@
+<div>
+  <h1 class="app_title">MLB Stat Analyzer</h1>
+</div>
+
+<div class="filter_button_cont">
+  <button class="filter_button">Search player:</button>
+  <button class="filter_button">Color: Games Played</button>
+</div>
+<div id="g_container"></div>
+<div id="graph_data">{{ graph_data }}</div>
+
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename = 'home_page_script.js')}}"
+></script>
