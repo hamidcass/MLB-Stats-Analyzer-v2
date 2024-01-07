@@ -148,7 +148,7 @@ function get_stats(choice) {
         submit_button.style.backgroundColor = "#2828ff";
         submit_button.addEventListener("click", function () {
           console.log(choice);
-          if (choice == "Hitting") {
+          if (choice == "Offense") {
             send_o_stats(
               choose_stat_button_1.textContent,
               choose_stat_button_2.textContent
