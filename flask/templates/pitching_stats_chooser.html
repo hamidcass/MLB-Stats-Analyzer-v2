@@ -1,4 +1,37 @@
-{% extends "home_page.html" %}
-{% block content%}
-<h1>Pitching</h1>
-{%endblock%}
+<div>
+    <h1 class="app_title">MLB Stat Analyzer</h1>
+</div>
+
+
+<div id="stats_chooser">
+    <h3>Now, choose which stats to compare</h1>
+    
+        <div class="button_container">
+            <div class="dropdown_container">
+
+                <button id="stat_1" class="dropdown_buttons">First stat</button>
+                <button id="stat_2" class="dropdown_buttons">Second Stat</button>
+                <button id="submit_button">Submit</button>
+                <div id="dropdown_container_2">
+                    <div class="dropdown_content">
+                        <h4 class="dd_option">Games Played (G)</h4>
+                        <h4 class="dd_option">Innings Pitched (IP)</h4>
+                        <h4 class="dd_option">Wins (W)</h4>
+                        <h4 class="dd_option">Losses (L)</h4>
+                        <h4 class="dd_option">Earned Run Average (ERA)</h4>
+                        <h4 class="dd_option">Walks + Hits / IP (WHIP)</h4>
+                        <h4 class="dd_option">Strikeouts / 9 (SO/9)</h4>
+                        <h4 class="dd_option">Base On Balls (BB)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        
+    
+</div>
+
+<script 
+        type="text/javascript" 
+        src="{{ url_for('static', filename = 'home_page_script.js')}}"
+></script>
