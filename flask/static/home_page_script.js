@@ -37,7 +37,7 @@ function send_category(choice) {
 }
 
 //send offensive stats to views.py
-function send_o_stats(stat_1, stat_2) {
+function send_o_stats(stat_1, stat_2, choice) {
   const stats_chooser_cont = document.getElementById("stats_chooser");
   fetch("/views/collect_offensive_stats", {
     method: "POST",
@@ -55,7 +55,7 @@ function send_o_stats(stat_1, stat_2) {
     .then((html) => {
       // Replace the content of an element with ID 'container' with the received HTML
       document.body.innerHTML = html;
-      process_results();
+      process_results(stat_1, stat_2, choice);
     })
     .catch((error) => {
       console.error("There was an error:", error);
@@ -63,7 +63,7 @@ function send_o_stats(stat_1, stat_2) {
 }
 
 //send pitching stats to views.py
-function send_p_stats(stat_1, stat_2) {
+function send_p_stats(stat_1, stat_2, choice) {
   const stats_chooser_cont = document.getElementById("stats_chooser");
   fetch("/views/collect_pitching_stats", {
     method: "POST",
@@ -81,7 +81,7 @@ function send_p_stats(stat_1, stat_2) {
     .then((html) => {
       // Replace the content of an element with ID 'container' with the received HTML
       document.body.innerHTML = html;
-      process_results();
+      process_results(stat_1, stat_2, choice);
     })
     .catch((error) => {
       console.error("There was an error:", error);
@@ -147,16 +147,17 @@ function get_stats(choice) {
         //make submit button active
         submit_button.style.backgroundColor = "#2828ff";
         submit_button.addEventListener("click", function () {
-          console.log(choice);
           if (choice == "Offense") {
             send_o_stats(
               choose_stat_button_1.textContent,
-              choose_stat_button_2.textContent
+              choose_stat_button_2.textContent,
+              choice
             );
           } else {
             send_p_stats(
               choose_stat_button_1.textContent,
-              choose_stat_button_2.textContent
+              choose_stat_button_2.textContent,
+              choice
             );
           }
         });
@@ -165,9 +166,12 @@ function get_stats(choice) {
   });
 }
 
-function process_results() {
+function process_results(stat_1, stat_2, choice) {
   var graph = document.getElementById("graph_data").textContent;
   var parsedGraphData = JSON.parse(graph);
+
+  const search_bar = document.getElementById("input_player");
+  const search_button = document.getElementById("search_player_button");
 
   document.getElementById("graph_data").remove();
   graph_container = document.getElementById("g_container");
@@ -184,18 +188,42 @@ function process_results() {
     },
   };
 
+  //config doesn't work (cannot scroll with mouse wheel)
   var config = {
     scrollZoom: true, // Enable scroll zoom
   };
 
   Plotly.plot(graph_container, parsedGraphData, layout, config);
 
-  // var layout = parsedGraphData.layout;
-
-  // Hide grid lines
-  //layout.xaxis.gridcolor = 'rgba(0, 0, 0, 0)';
-  //layout.yaxis.gridcolor = 'rgba(0, 0, 0, 0)';
-
-  // Update the plot using the modified layout
-  // Plotly.react(graph_container, parsedGraphData, layout, {scrollZoom: true});
+  //user can search for a player
+  search_button.addEventListener("click", function () {
+    if (search_bar.value.trim() !== "") {
+      fetch("/views/search_player", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_stat: stat_1,
+          second_stat: stat_2,
+          category: choice,
+          player: search_bar.value.trim(),
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.text(); // Assuming the server returns HTML content as a string
+        })
+        .then((html) => {
+          // Replace the content of an element with ID 'container' with the received HTML
+          document.body.innerHTML = html;
+          process_results(stat_1, stat_2, choice);
+        })
+        .catch((error) => {
+          console.error("There was an error:", error);
+        });
+    }
+  });
 }
